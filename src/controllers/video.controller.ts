@@ -74,6 +74,20 @@ class VideoController {
             throw error
         }
     }
+
+    async testMongoDB() {
+        
+        try{
+            const data = await VideoReelModel.findOne({}).lean()
+    
+            console.log(data, 'la data')
+    
+            return data
+            
+        }catch (error) {
+            throw error
+        }
+    }
 }
 
 export default new VideoController()

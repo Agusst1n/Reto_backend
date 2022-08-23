@@ -7,11 +7,22 @@ const router = new Router();
 router.get('/execute', async (req, res): Promise<Response> => {
   try {
     await videoController.executeProcessToBuildReel()
-    return res.json({ success: true, });
+    return res.json({ success: true, hola: 'hola q hace'});
   } catch (error) {
     return res.json({succes: false, error: error.stack})
   }
 });
+
+
+router.get('/testMongoDB', async (req, res): Promise<Response> => {
+  try {
+    await videoController.testMongoDB()
+    return res.json({ success: true, hola: 'hola q hace estoy ok'});
+  } catch (error) {
+    return res.json({succes: false, error: error.stack})
+  }
+});
+
 
 router.get('/ffmpeg', async (req, res): Promise<Response> => {
   try {
@@ -27,6 +38,13 @@ router.post('/cutvideo', async (req, res): Promise<Response> => {
     const {nameVideo, startTime, endTime, numberCpusAvailables} = req.body
     console.log("🚀 ~ file: video.routes.ts ~ line 28 ~ router.get ~ nameVideo", nameVideo)
     await videoController.cutVideo(nameVideo, startTime, endTime, numberCpusAvailables)
+
+    //!esperar la info para guardarse
+    //const videoDB = await videoController.cutVideo(nameVideo, startTime, endTime, numberCpusAvailables)
+    
+    //!aca puede enviarse los datos en mongo
+    //await videoDB.save();
+
     return res.json({ success: true, });
   } catch (error) {
     return res.json({succes: false, error: error.stack})
