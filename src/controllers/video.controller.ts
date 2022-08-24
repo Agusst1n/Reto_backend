@@ -88,6 +88,37 @@ class VideoController {
             throw error
         }
     }
+
+
+
+    async datos(nombre_pagina: string, limite: number) {
+        try {
+            console.log('vamos bien')
+            await SonyVegasController.datos(nombre_pagina, limite)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    //Descarga los videos
+    async downloadvid(name_archivo: string){
+        try {        
+            console.log('Entre fase 2')
+            const ruta = '/back/Reto_backend/srcvideosdescargados'
+            let args2 = [
+                'let counter=0;',
+                'for video in *.mp4;',
+                'do mv -i',
+                '"$video"',
+                `${ruta}/"video"_$((counter+1)).mp4`,
+                '&& counter=$(( counter+1 )); done',
+            ]
+            await SonyVegasController.downloadvid(name_archivo)
+            await SonyVegasController.libre(args2)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default new VideoController()

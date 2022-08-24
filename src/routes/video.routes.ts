@@ -51,4 +51,25 @@ router.post('/cutvideo', async (req, res): Promise<Response> => {
   }
 });
 
+router.post('/descargarvideos', async (req, res): Promise<Response> => {
+  try {
+    const {name_archivo} = req.body
+    console.log('Entre route fase 1')
+    await videoController.downloadvid(name_archivo)
+    return res.json({ success: true, });
+  } catch (error) {
+    return res.json({succes: false, error: error.stack})
+  }
+});
+
+router.post('/datos', async (req, res): Promise<Response> => {
+  try {
+    const {nombre_pagina, limite} = req.body
+    await videoController.datos(nombre_pagina, limite)
+    return res.json({ success: true, estado:'okey'});
+  } catch (error) {
+    return res.json({succes: false, error: error.stack})
+  }
+});
+
 export default router;
